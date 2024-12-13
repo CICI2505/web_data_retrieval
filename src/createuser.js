@@ -106,7 +106,7 @@ function CreateUser() {
             </ListItemIcon>
             <ListItemText primary="About" />
           </ListItem>
-          <ListItem button component={Link} to="/account">
+          <ListItem button component={Link} to="/accountuser">
             <ListItemIcon>
               <AccountCircle />
             </ListItemIcon>

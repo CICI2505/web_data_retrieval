@@ -14,17 +14,16 @@ import { googleLogout } from '@react-oauth/google';
 function Dashboardadmin() {
   const location = useLocation();
   const navigate = useNavigate();
+
+  // Ambil data profil dari localStorage atau location state
   const profile = location.state?.profile || JSON.parse(localStorage.getItem('profile'));
+  
+
   const [openDataItems, setOpenDataItems] = useState(false);
   const [openAccount, setOpenAccount] = useState(false);
 
-  const handleDataItemsClick = () => {
-    setOpenDataItems((prev) => !prev);
-  };
-
-  const handleAccountClick = () => {
-    setOpenAccount((prev) => !prev);
-  };
+  const handleDataItemsClick = () => setOpenDataItems(prev => !prev);
+  const handleAccountClick = () => setOpenAccount(prev => !prev);
 
   const logout = () => {
     googleLogout();
@@ -32,6 +31,7 @@ function Dashboardadmin() {
     navigate('/');
   };
 
+  // Jika tidak ada profil ditemukan, tampilkan pesan untuk login
   if (!profile) {
     return (
       <Typography variant="h5" align="center" sx={{ mt: 4 }}>
@@ -48,13 +48,13 @@ function Dashboardadmin() {
 
   const recentItems = [
     { id: 1, name: 'Redmi Note 9', type: 'Headphone', creationDate: '2024-10-23' },
-    // More items can be added here
   ];
 
+  
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, backgroundColor: 'black' }}>
+      <AppBar position="fixed" sx={{ zIndex: theme => theme.zIndex.drawer + 1, backgroundColor: 'black' }}>
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Box display="flex" alignItems="center">
             <img src={logo} alt="Logo" style={{ height: '50px', marginRight: '10px' }} />
@@ -74,77 +74,56 @@ function Dashboardadmin() {
         sx={{
           width: 240,
           flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: 240,
-            boxSizing: 'border-box',
-          },
+          '& .MuiDrawer-paper': { width: 240, boxSizing: 'border-box' },
         }}
       >
         <Toolbar />
         <List>
           <ListItem button component={Link} to="/dashboardadmin">
-            <ListItemIcon>
-              <DashboardIcon />
-            </ListItemIcon>
+            <ListItemIcon><DashboardIcon /></ListItemIcon>
             <ListItemText primary="Dashboard" />
           </ListItem>
 
           <ListItem button onClick={handleDataItemsClick}>
-            <ListItemIcon>
-              <ListAlt />
-            </ListItemIcon>
+            <ListItemIcon><ListAlt /></ListItemIcon>
             <ListItemText primary="Data Items" />
             {openDataItems ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={openDataItems} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <ListItem button sx={{ pl: 4 }} component={Link} to="/searchadmin">
-                <ListItemIcon>
-                  <Search />
-                </ListItemIcon>
+                <ListItemIcon><Search /></ListItemIcon>
                 <ListItemText primary="Search" />
               </ListItem>
               <ListItem button sx={{ pl: 4 }} component={Link} to="/createadmin">
-                <ListItemIcon>
-                  <Description />
-                </ListItemIcon>
+                <ListItemIcon><Description /></ListItemIcon>
                 <ListItemText primary="Create" />
               </ListItem>
-              <ListItem button sx={{ pl: 4 }} component={Link} to="/historyadmin">
-                <ListItemIcon>
-                  <History />
-                </ListItemIcon>
+              <ListItem button sx={{ pl: 4 }} component={Link} to="/history">
+                <ListItemIcon><History /></ListItemIcon>
                 <ListItemText primary="History" />
               </ListItem>
             </List>
           </Collapse>
 
           <ListItem button component={Link} to="/aboutadmin">
-            <ListItemIcon>
-              <Info />
-            </ListItemIcon>
+            <ListItemIcon><Info /></ListItemIcon>
             <ListItemText primary="About" />
           </ListItem>
 
           <ListItem button onClick={handleAccountClick}>
-            <ListItemIcon>
-              <AccountCircle />
-            </ListItemIcon>
+            <ListItemIcon><AccountCircle /></ListItemIcon>
             <ListItemText primary="Account" />
             {openAccount ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={openAccount} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <ListItem button sx={{ pl: 4 }} component={Link} to="/profileadmin">
-                <ListItemIcon>
-                  <AccountCircle />
-                </ListItemIcon>
+                <ListItemIcon><AccountCircle /></ListItemIcon>
                 <ListItemText primary="Profile" />
               </ListItem>
               <ListItem button sx={{ pl: 4 }} component={Link} to="/manageadmin">
-                <ListItemIcon>
-                  <AccountCircle />
-                </ListItemIcon>
+                <ListItemIcon><AccountCircle /></ListItemIcon>
                 <ListItemText primary="Manage" />
               </ListItem>
             </List>
@@ -164,9 +143,7 @@ function Dashboardadmin() {
         }}
       >
         <Toolbar />
-        <Typography variant="h3" gutterBottom sx={{ fontWeight: 'bold' }}>
-          Dashboard
-        </Typography>
+        <Typography variant="h3" gutterBottom sx={{ fontWeight: 'bold' }}>Dashboard</Typography>
 
         <Grid container spacing={3}>
           <Grid item xs={4}>
@@ -175,7 +152,7 @@ function Dashboardadmin() {
                 <Storage sx={{ fontSize: 30, marginRight: 2 }} />
                 <CardContent sx={{ p: 0 }}>
                   <Typography variant="h6" gutterBottom sx={{ fontSize: '0.9rem' }}>Items</Typography>
-                  <Typography variant="h4" component="div" sx={{ fontSize: '1.5rem' }}>106</Typography>
+                  <Typography variant="h4" sx={{ fontSize: '1.5rem' }}>106</Typography>
                 </CardContent>
               </Card>
 
@@ -191,7 +168,7 @@ function Dashboardadmin() {
                 <Apartment sx={{ fontSize: 30, marginRight: 2 }} />
                 <CardContent sx={{ p: 0 }}>
                   <Typography variant="h6" gutterBottom sx={{ fontSize: '0.9rem' }}>Departments</Typography>
-                  <Typography variant="h4" component="div" sx={{ fontSize: '1.5rem' }}>50</Typography>
+                  <Typography variant="h4" sx={{ fontSize: '1.5rem' }}>50</Typography>
                 </CardContent>
               </Card>
             </Box>
@@ -224,7 +201,6 @@ function Dashboardadmin() {
                   </Table>
                 </Box>
               </Grid>
-
               <Grid item xs={12}>
                 <Box sx={{ backgroundColor: 'white', padding: 2, borderRadius: 8 }}>
                   <Typography variant="h6" gutterBottom>Recently Active Users</Typography>

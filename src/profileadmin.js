@@ -131,7 +131,7 @@ function CreateAdmin() {
                 </ListItemIcon>
                 <ListItemText primary="Create" />
               </ListItem>
-              <ListItem button sx={{ pl: 4 }} component={Link} to="/historyadmin">
+              <ListItem button sx={{ pl: 4 }} component={Link} to="/history">
                 <ListItemIcon>
                   <History />
                 </ListItemIcon>
@@ -227,7 +227,7 @@ function CreateAdmin() {
                     fullWidth
                   />
                 ) : (
-                  <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                  <Typography variant="h6">
                     {item.value}
                   </Typography>
                 )}
